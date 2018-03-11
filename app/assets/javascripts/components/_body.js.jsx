@@ -1,6 +1,6 @@
 var Body = React.createClass({
     getInitialState() {
-        return { items: [] }
+        return { items: [],activeItem:undefined}
     },
 
 
@@ -34,7 +34,14 @@ var Body = React.createClass({
         this.setState({ items: newItems });
     },
 
+    updateItemClient(id,description) {
+        //var newItems = this.state.items.filter((item) => {
+        //    return item.id != id;
+		//});
 
+        //this.setState({ items: newItems });
+		console.log(id,'=',description);
+    },
 
     handleUpdate(item) {
         $.ajax({
@@ -51,16 +58,29 @@ var Body = React.createClass({
     updateItems(item) {
         var items = this.state.items.filter((i) => { return i.id != item.id });
         items.push(item);
-
         this.setState({items: items });
     },
-
+	
+    handleClick(id) {
+		var found = this.state.items.find(function(element) { return element.id=id;});
+		debugger;
+		console.log('clicked'+found.name)
+        this.setState({items: this.state.items, activeItem:found });
+    },
 
     render() {
         return (
             <div>
-                <NewItem handleSubmit={this.handleSubmit}/>
-                <AllItems  items={this.state.items}  handleDelete={this.handleDelete} onUpdate={this.handleUpdate}/>
+				<table><thead><tr><th>Контакты</th><th>Чат</th></tr></thead>
+				<tbody><tr><td>
+                <AllItems1 items={this.state.items}  handleDelete={this.handleDelete} onUpdate={this.handleUpdate} handleClick={this.handleClick}/>
+				</td>
+				<td>
+				{/*<NewItem handleSubmit={this.handleSubmit}/><br></br>*/}
+				<ActiveItem activeItem={this.state.activeItem} handleSubmit={this.handleSubmit}/></td>
+				</tr>
+				</tbody>
+				</table>
             </div>
         )
     }
