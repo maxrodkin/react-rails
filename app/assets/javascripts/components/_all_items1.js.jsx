@@ -3,7 +3,8 @@ var AllItems1 = React.createClass({
         this.props.handleDelete(id);
     },
     handleClick(id) {
-        this.props.handleClick(id);
+ 				debugger;
+       this.props.handleClick(id);
     },
     onUpdate(item) {
         this.props.onUpdate(item);
@@ -15,10 +16,9 @@ var AllItems1 = React.createClass({
 				let description = <p>{item.description}</p>;
                 return (
                     <div key={item.id}
-                        item={item}
                         handleDelete={this.handleDelete.bind(this, item.id)}
                         handleUpdate={this.onUpdate}
-						onClick={this.props.handleClick}
+						onClick={this.props.handleClick.bind(this, item.id)}
 					>
 						{name}
 						{description}

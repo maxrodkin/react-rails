@@ -17,6 +17,7 @@ var Body = React.createClass({
 
 
     handleDelete(id) {
+		debugger;
         $.ajax({
             url: `/api/v1/items/${id}`,
             type: 'DELETE',
@@ -63,7 +64,7 @@ var Body = React.createClass({
 	
     handleClick(id) {
 		var found = this.state.items.find(function(element) { return element.id=id;});
-		debugger;
+		//debugger;
 		console.log('clicked'+found.name)
         this.setState({items: this.state.items, activeItem:found });
     },

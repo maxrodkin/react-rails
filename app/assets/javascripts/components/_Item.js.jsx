@@ -13,14 +13,19 @@ var Item = React.createClass({
         }
         this.setState({ editable: !this.state.editable })
     },
+    handleClick(id) {
+		debugger;
+		console.log('clicked '+id);
+		this.props.handleClick(id);
+    },
 
     render() {
-        var name = this.state.editable ? <input type='text' ref='name' defaultValue={this.props.item.name} /> : <h3>{this.props.item.name}</h3>;
+        var name = this.state.editable ? <input type='text' ref='name' defaultValue={this.props.item.name} /> : <div>{this.props.item.name}</div>;
         var description = this.state.editable ? <input type='text' ref='description' defaultValue={this.props.item.description} />: <p>{this.props.item.description}</p>;
         return (
             <div>
 			<div onClick={this.props.handleClick} >
-                {name}
+                {this.props.item.id}/{name}
                 {description}
 			</div>
 			<div>	

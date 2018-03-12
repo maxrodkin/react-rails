@@ -1,6 +1,6 @@
 var ActiveItem= React.createClass({
-    handleClick() {
-		debugger;
+    handleSubmit() {
+		//debugger;
         var name    = this.props.activeItem.name;
         var description = this.props.activeItem.description;
         $.ajax({
@@ -8,17 +8,21 @@ var ActiveItem= React.createClass({
             type: 'POST',
             data: { item: { name: name, description: description } , action:'update'},
             success: (item) => {
-                this.props.handleSubmit(item);
+                this.props.handleUpdate(this.props.activeItem,description);
             }
         });
     },	
+itemIsActive () { return typeof(this.props.activeItem)!='undefined'; } ,
     render() {
         return (
                 <div id={this.name} >
-					<textarea rows="4" cols="50" defaultValue={this.props.description}></textarea>
-					<br></br>
-                    <input ref='description' placeholder='Добавьте комментарий' />
-                    <button onClick={this.handleClick}>Submit</button>
+					{this.itemIsActive() &&
+							<div>Чат с {this.props.activeItem.name}<br></br>
+								{this.props.activeItem.description}<br></br>
+								Добавьте комментарий<br></br>
+							<input ref='description' placeholder='Добавьте комментарий' />
+							<button onClick={this.handleSubmit}>Submit</button></div>
+					}
                 </div>
 
         )
