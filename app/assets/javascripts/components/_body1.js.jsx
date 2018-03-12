@@ -59,8 +59,9 @@ var Body1 = React.createClass({
 
     updateItems(item,description) {
 		debugger;
-        var items = this.state.items.filter((i) => { return i.id != item.id });
-        items.push({id:item.id, name:item.name, description:item.description+'\n'+description });
+		var items = this.state.items;
+		var found = items.find(function(element) { return element.id==item.id;});
+		found.description =  found.description+'\n'+description;
         this.setState({items: items });
     },
 	

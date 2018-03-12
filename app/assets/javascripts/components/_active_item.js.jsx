@@ -1,8 +1,7 @@
 var ActiveItem= React.createClass({
-    handleSubmit() {
-		//debugger;
-        var name    = this.props.activeItem.name;
-        var description = this.props.activeItem.description;
+    handleUpdate() {
+		debugger;
+        var description = this.refs.description.value;
         $.ajax({
             url: '/api/v1/items',
             type: 'POST',
@@ -15,13 +14,13 @@ var ActiveItem= React.createClass({
 itemIsActive () { return typeof(this.props.activeItem)!='undefined'; } ,
     render() {
         return (
-                <div id={this.name} >
+                <div  >
 					{this.itemIsActive() &&
-							<div>Чат с {this.props.activeItem.name}<br></br>
-								{this.props.activeItem.description}<br></br>
+							<div id={this.props.activeItem.id}>Чат с {this.props.activeItem.name}:<br></br>
+								<div >{this.props.activeItem.description}<br></br></div>
 								Добавьте комментарий<br></br>
 							<input ref='description' placeholder='Добавьте комментарий' />
-							<button onClick={this.handleSubmit}>Submit</button></div>
+							<button onClick={this.handleUpdate}>Update</button></div>
 					}
                 </div>
 

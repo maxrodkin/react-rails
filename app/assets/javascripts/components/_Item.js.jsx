@@ -22,11 +22,12 @@ var Item = React.createClass({
     render() {
         var name = this.state.editable ? <input type='text' ref='name' defaultValue={this.props.item.name} /> : <div>{this.props.item.name}</div>;
         var description = this.state.editable ? <input type='text' ref='description' defaultValue={this.props.item.description} />: <p>{this.props.item.description}</p>;
+		var id_name = this.props.item.id + '/' + this.props.item.name;
         return (
             <div>
 			<div onClick={this.props.handleClick} >
-                {this.props.item.id}/{name}
-                {description}
+                {id_name}
+                {/*description*/}
 			</div>
 			<div>	
 					<button onClick={this.props.handleDelete} >Delete</button>

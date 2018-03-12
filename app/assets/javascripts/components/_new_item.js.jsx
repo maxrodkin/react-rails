@@ -9,7 +9,8 @@ var NewItem= React.createClass({
             success: (item) => {
                 this.props.handleSubmit(item);
             }
-        });
+        });/**/
+		this.props.handleSubmit(item);
     },
     render() {
         return (
