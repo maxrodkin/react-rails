@@ -45,7 +45,7 @@ var Body1 = React.createClass({
     },
 
     handleUpdate(item,description) {
-		debugger;
+		//debugger;
         $.ajax({
                 url: `/api/v1/items/${item.id}`,
                 type: 'PUT',
@@ -58,17 +58,19 @@ var Body1 = React.createClass({
         )},
 
     updateItems(item,description) {
-		debugger;
-		var items = this.state.items;
+		
+		/*var items = this.state.items;
 		var found = items.find(function(element) { return element.id==item.id;});
 		found.description =  found.description+'\n'+description;
-        this.setState({items: items });
-    },
+        this.setState({items: items });*/
+         var items = this.state.items.filter((i) => { return i.id != item.id });
+        items.push({id:item.id, name:item.name, description:description });
+        this.setState({items: items }, function(){debugger;console.log(	this.state.items)});
+		},
 	
     handleClick(id) {
 		var found = this.state.items.find(function(element) { return element.id==id;});
 		//debugger;
-		console.log('clicked '+id+' found '+found.id+"/"+found.name)
         this.setState({items: this.state.items, activeItem:found }, function(){console.log(	this.state.activeItem)}); 
     },
 
