@@ -73,7 +73,7 @@ var Body1 = React.createClass({
     },
 
     render() {
-             var items= this.state.items.map((item) => {
+             var items = this.state.items.map((item) => {
                 return (
                     <div key={item.id}>
                         <Item item={item}
