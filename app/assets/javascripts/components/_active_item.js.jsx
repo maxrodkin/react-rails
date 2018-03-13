@@ -1,6 +1,7 @@
 var ActiveItem= React.createClass({
     handleUpdate() {
-        this.props.handleUpdate(this.props.activeItem,this.props.activeItem.description+"\n"+ this.refs.description.value);
+//        this.props.handleUpdate(this.props.activeItem,this.props.activeItem.description+"\n"+ this.refs.description.value);
+        this.props.handleUpdate(this.props.activeItem,this.refs.description.value);
     },
 
 	

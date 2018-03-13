@@ -66,7 +66,8 @@ var Body1 = React.createClass({
 		found.description =  found.description+'\n'+description;
         this.setState({items: items });*/
          var items = this.state.items.filter((i) => { return i.id != item.id });
-        items.push({id:item.id, name:item.name, description:description });
+//        items.push({id:item.id, name:item.name, description:description });
+        items.push({id:item.id, name:item.name, description:this.state.activeItem.description+"\n"+description });
         this.setState({items: items }, function(){debugger;console.log(	this.state.items)});
 		},
 	sendMessageToTelegramBot(item,description){
