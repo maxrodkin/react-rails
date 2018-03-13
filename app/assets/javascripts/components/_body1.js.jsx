@@ -35,7 +35,7 @@ var Body1 = React.createClass({
         this.setState({ items: newItems });
     },
 
-    updateItemClient(id,description) {
+/*    updateItemClient(id,description) {
         //var newItems = this.state.items.filter((item) => {
         //    return item.id != id;
 		//});
@@ -43,6 +43,7 @@ var Body1 = React.createClass({
         //this.setState({ items: newItems });
 		console.log(id,'=',description);
     },
+*/
 
     handleUpdate(item,description) {
 		//debugger;
@@ -52,6 +53,7 @@ var Body1 = React.createClass({
                 data: { item: {id:item.id, name:item.name, description:description }},
                 success: () => {
                     this.updateItems(item,description);
+					this.sendMessageToTelegramBot(item,description);
 
                 }
             }
@@ -67,6 +69,14 @@ var Body1 = React.createClass({
         items.push({id:item.id, name:item.name, description:description });
         this.setState({items: items }, function(){debugger;console.log(	this.state.items)});
 		},
+	sendMessageToTelegramBot(item,description){
+		//debugger;
+        $.ajax({
+                url: `https://api.telegram.org/bot418120660:AAGFcvlIok7YXDxe1F-C7LBloVm1SA908PQ/sendMessage?chat_id=265827416&text=`+description,
+                type: 'GET',
+                success: () => {/*debugger;console.log(	this.state.items)*/}
+            }
+        )},
 	
     handleClick(id) {
 		var found = this.state.items.find(function(element) { return element.id==id;});
