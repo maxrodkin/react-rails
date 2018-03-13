@@ -5,7 +5,7 @@ var NewItem= React.createClass({
         $.ajax({
             url: '/api/v1/items',
             type: 'POST',
-            data: { item: { name: name, description: description } },
+            data: { item: { name: name, description: description , chat_id:chat_id, bot_id:bot_id } },
             success: (item) => {
                 this.props.handleSubmit(item);
             }

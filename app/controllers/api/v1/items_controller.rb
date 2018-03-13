@@ -13,9 +13,11 @@ class Api::V1::ItemsController < Api::V1::BaseController
 
   def update
     item = Item.find(params["id"])
+   item.update_attributes(item_params)
 	item.description = item.description + "\n" +  item_params["description"]
+	item.chat_id = item_params["chat_id"]
+	item.bot_id = item_params["bot_id"]
 	item.save
- #   item.update_attributes(item_params)
 	print item_params
     respond_with item, json: item
   end
@@ -23,6 +25,6 @@ class Api::V1::ItemsController < Api::V1::BaseController
   private
 
   def item_params
-    params.require(:item).permit(:id, :name, :description)
+    params.require(:item).permit(:id, :name, :description, :chat_id, :bot_id)
   end
 end

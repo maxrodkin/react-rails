@@ -50,7 +50,7 @@ var Body1 = React.createClass({
         $.ajax({
                 url: `/api/v1/items/${item.id}`,
                 type: 'PUT',
-                data: { item: {id:item.id, name:item.name, description:description }},
+                data: { item: {id:item.id, name:item.name, description:description, chat_id:item.chat_id, bot_id:item.bot_id  }},
                 success: () => {
                     this.updateItems(item,description);
 					this.sendMessageToTelegramBot(item,description);
@@ -67,7 +67,7 @@ var Body1 = React.createClass({
         this.setState({items: items });*/
          var items = this.state.items.filter((i) => { return i.id != item.id });
 //        items.push({id:item.id, name:item.name, description:description });
-        items.push({id:item.id, name:item.name, description:this.state.activeItem.description+"\n"+description });
+        items.push({id:item.id, name:item.name, description:this.state.activeItem.description+"\n"+description, chat_id:item.chat_id, bot_id:item.bot_id });
         this.setState({items: items }, function(){debugger;console.log(	this.state.items)});
 		},
 	sendMessageToTelegramBot(item,description){
