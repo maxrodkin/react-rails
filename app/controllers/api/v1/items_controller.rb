@@ -13,10 +13,10 @@ class Api::V1::ItemsController < Api::V1::BaseController
 
   def update
     item = Item.find(params["id"])
-   item.update_attributes(item_params)
+	item.update_attributes(item_params)
 	item.description = item.description + "\n" +  item_params["description"]
-	item.chat_id = item_params["chat_id"]
-	item.bot_id = item_params["bot_id"]
+	#item.chat_id = item_params["chat_id"]
+	#item.bot_id = item_params["bot_id"]
 	item.save
 	print item_params
     respond_with item, json: item

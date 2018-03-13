@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180313074225) do
+ActiveRecord::Schema.define(version: 20180313112120) do
 
   create_table "items", force: :cascade do |t|
     t.string "name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20180313074225) do
     t.datetime "updated_at", null: false
     t.string "chat_id"
     t.string "bot_id"
+    t.index ["chat_id"], name: "index_items_on_chat_id"
   end
 
 end

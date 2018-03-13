@@ -2,3 +2,5 @@
 решение основано на статье:
 1. https://scotch.io/tutorials/build-a-restful-json-api-with-rails-5-part-one
 2. {Building a CRUD interface with React and Ruby on Rails}[link:http://tutorials.pluralsight.com/ruby-ruby-on-rails/building-a-crud-interface-with-react-and-ruby-on-rails]
+
+два дота расположены в проекте https://github.com/maxrodkin/ruby_telegram_bot.git

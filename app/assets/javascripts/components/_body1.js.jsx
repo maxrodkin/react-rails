@@ -73,7 +73,7 @@ var Body1 = React.createClass({
 	sendMessageToTelegramBot(item,description){
 		//debugger;
         $.ajax({
-                url: `https://api.telegram.org/bot418120660:AAGFcvlIok7YXDxe1F-C7LBloVm1SA908PQ/sendMessage?chat_id=265827416&text=`+description,
+                url: `https://api.telegram.org/bot`+item.bot_id+`/sendMessage?chat_id=`+item.chat_id+`&text=`+description,
                 type: 'GET',
                 success: () => {/*debugger;console.log(	this.state.items)*/}
             }

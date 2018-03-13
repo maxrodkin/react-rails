@@ -5,5 +5,8 @@ Rails.application.routes.draw do
       namespace :v1 do
         resources :items, only: [:index, :create, :destroy, :update]
       end
+      namespace :v2 do
+        resources :items, only: [:index, :update]
+      end
     end
   end
