@@ -31,7 +31,7 @@ var Item = React.createClass({
 			</div>
 			<div>	
 					<button onClick={this.props.handleDelete} >Delete</button>
-					<button onClick={this.handleEdit}> {this.state.editable ? 'Submit' : 'Edit' } </button>{/**/}{/**/}
+					{/*<button onClick={this.handleEdit}> {this.state.editable ? 'Submit' : 'Edit' } </button>*/}{/**/}
             </div>
             </div>
         )

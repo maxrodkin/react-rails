@@ -1,6 +1,6 @@
 var Body1 = React.createClass({
     getInitialState() {
-        return { items: [],activeItem:undefined}
+        return { items: [],activeItem:undefined,activeItemIndex:undefined}
     },
 
 
@@ -16,23 +16,23 @@ var Body1 = React.createClass({
     },
 
 
-    handleDelete(id) {
+    handleDelete(id,index) {
 		//debugger;
         $.ajax({
             url: `/api/v1/items/${id}`,
             type: 'DELETE',
             success:() => {
-               this.removeItemClient(id);
+               this.removeItemClient(id,index);
             }
         });
     },
 
-    removeItemClient(id) {
+    removeItemClient(id,index) {
         var newItems = this.state.items.filter((item) => {
             return item.id != id;
         });
 
-        this.setState({ items: newItems });
+        this.setState({ items: newItems ,activeItem:this.state.items[index-1], activeItemIndex:index-1});
     },
 
 /*    updateItemClient(id,description) {
@@ -48,7 +48,7 @@ var Body1 = React.createClass({
     handleUpdate(item,description) {
 		//debugger;
         $.ajax({
-                url: `/api/v1/items/${item.id}`,
+                url: `/api/v2/items/${item.id}`,
                 type: 'PUT',
                 data: { item: {id:item.id, name:item.name, description:description, chat_id:item.chat_id, bot_id:item.bot_id  }},
                 success: () => {
@@ -60,15 +60,9 @@ var Body1 = React.createClass({
         )},
 
     updateItems(item,description) {
-		
-		/*var items = this.state.items;
-		var found = items.find(function(element) { return element.id==item.id;});
-		found.description =  found.description+'\n'+description;
-        this.setState({items: items });*/
-         var items = this.state.items.filter((i) => { return i.id != item.id });
-//        items.push({id:item.id, name:item.name, description:description });
+         var items = this.state.items.filter((i) => { return i.id != item.id });//исключаем текущий элемент из state.items , чтобы добвить его обновленный в стейт
         items.push({id:item.id, name:item.name, description:this.state.activeItem.description+"\n"+description, chat_id:item.chat_id, bot_id:item.bot_id });
-        this.setState({items: items }, function(){debugger;console.log(	this.state.items)});
+        this.setState({items: items,activeItem:item, activeItemIndex:items.length-1}, function(){/*debugger;*/console.log(	"after set state: "+JSON.stringify(this.state))});
 		},
 	sendMessageToTelegramBot(item,description){
 		//debugger;
@@ -79,19 +73,19 @@ var Body1 = React.createClass({
             }
         )},
 	
-    handleClick(id) {
+    handleClick(id,index) {
 		var found = this.state.items.find(function(element) { return element.id==id;});
 		//debugger;
-        this.setState({items: this.state.items, activeItem:found }, function(){console.log(	this.state.activeItem)}); 
+        this.setState({items: this.state.items, activeItem:found , activeItemIndex:index }, function(){console.log(	"after click: "+JSON.stringify(this.state))}); 
     },
 
     render() {
-             var items = this.state.items.map((item) => {
+             var items = this.state.items.map((item,index) => {
                 return (
                     <div key={item.id}>
                         <Item item={item}
-							  handleClick={this.handleClick.bind(this, item.id)}
-                              handleDelete={this.handleDelete.bind(this, item.id)}
+							  handleClick={this.handleClick.bind(this, item.id,index)}
+                              handleDelete={this.handleDelete.bind(this, item.id,index)}
                               handleUpdate={this.onUpdate}/>
                     </div>
                 )
@@ -108,11 +102,11 @@ var Body1 = React.createClass({
 				<td>
 					<table><tbody>
 					<tr><td>
-					<ActiveItem activeItem={this.state.activeItem} handleSubmit={this.handleSubmit} handleUpdate={this.handleUpdate}/></td></tr>
-					<tr><td>
+					<ActiveItem items={this.state.items} activeItem={this.state.activeItem} activeItemIndex={this.state.activeItemIndex} handleSubmit={this.handleSubmit} handleUpdate={this.handleUpdate}/></td></tr>
+					{/*<tr><td>
 					Новый чат:</td></tr>
 					<tr><td>
-					<NewItem handleSubmit={this.handleSubmit}/></td></tr>
+					<NewItem handleSubmit={this.handleSubmit}/></td></tr>*/}
 					</tbody></table>
 				</td>
 				</tr>

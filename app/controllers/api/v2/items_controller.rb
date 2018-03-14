@@ -12,19 +12,21 @@ class Api::V2::ItemsController < Api::V1::BaseController
   end
 
   def update
-	@item = Item.find_by(chat_id:item_params["chat_id"])
+	item = Item.find_by(chat_id:item_params["chat_id"],bot_id:item_params["bot_id"])
 #	rescue ActiveRecord::RecordNotFound
-#	if @item.blank?
+#	if item.blank?
 #	redirect_to (create) 
 #	return
 #	else
-	return redirect_to (create) if @item.blank?
-	puts @item
-#	@item.update_attributes(item_params)
-	@item.description = @item.description + "\n" +  item_params["description"]
-	@item.save
-	print item_params
-    respond_with @item, json: @item
+
+#	return redirect_to (create) if item.blank?
+	respond_with :api, :v2, Item.create(item_params) if item.blank?
+
+#	item.update_attributes(item_params)
+	item.description = item.description+"\n"+item_params['description']
+	#print "item_params="+item_params.to_s
+	item.save
+    respond_with item, json: item
 #	end
 end
 
