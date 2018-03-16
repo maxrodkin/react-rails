@@ -26,6 +26,7 @@ class Api::V2::ItemsController < Api::V1::BaseController
 	item.description = item.description+"\n"+item_params['description']
 	#print "item_params="+item_params.to_s
 	item.save
+#	ActionCable.server.broadcast 'room_channel', content:  '11', username: '11'
     respond_with item, json: item
 #	end
 end

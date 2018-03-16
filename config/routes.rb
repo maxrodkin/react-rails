@@ -9,4 +9,5 @@ Rails.application.routes.draw do
         resources :items, only: [:index, :update]
       end
     end
+	mount ActionCable.server, at: '/cable'
   end
